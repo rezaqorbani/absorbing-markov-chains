@@ -1,9 +1,18 @@
+#Created by: Reza Qorbani
+#Created: 01.06.2020
+#Last Updated: 06.07.2020
+
 from tkinter import *
 from tkinter import messagebox
 import markov_chain
 import re
 
 def validate_elements_row(output_matrix,entry,name_of_matrix):
+    '''
+    IN: matrix that will contain output matrix, entry to be validated, name of the matrix (i.e. 'matrix', 'vecotr', etc.)
+    Validates input from matrix entries using regex. 
+    appends the entry value (float) to the output_matrix if valid. 
+    '''
        
     content = entry.get()
     pattern = re.compile(r"[0]{1}[.]{1}[0-9]+|^[01]{1}$|\d+[/]\d+")
@@ -29,6 +38,12 @@ def validate_elements_row(output_matrix,entry,name_of_matrix):
 
 
 def calculate_stable_state_vector(): 
+
+    '''
+    Loops trough the entries in GUI and retrievs the user input from them. 
+    Creates a matrix and a initial state vector to be used for calculation.
+    Stores the results in the entris dedicated for results.
+    '''
     matrix=[]
     for row in matrix_entries:
         temp_row = []
@@ -41,7 +56,7 @@ def calculate_stable_state_vector():
     for entry in initial_state_vector_entries:
         validate_elements_row(init_vector,entry,"vector")
     
-    
+
     calculated_vector = markov_chain.solution(matrix,init_vector)
 
     result = list(map(float,calculated_vector))
@@ -53,23 +68,28 @@ def calculate_stable_state_vector():
         index += 1
     
     
-def create_matrix_elements():
+def create_body():
+    '''
+    Creates a body for the GUI according to the given dimension of the matrix.
+    Updates the body if a new dimension is given.
+    '''
+    dimension_of_matrix = int(dimension_entry.get()) 
 
-    N = int(dimension_entry.get())
-    if(N!=0):
+    if(dimension_of_matrix>0 and dimension_of_matrix<11):
         matrix_entries.clear()
         initial_state_vector_entries.clear()
         result_entries.clear()
-        button_0 = Button(master=frame_0, text = "Re-enter", command = regenerate_matrix)
-        button_0.grid(row=3)
 
-        ask_for_matrix = Label(master=frame_1, text="Please enter the matrix")
+        dimension_button = Button(master=frame_0, text = "Re-enter", command = regenerate_matrix) #regenerate the dimension button with update text
+        dimension_button.grid(row=3)
+
+        ask_for_matrix = Label(master=frame_1, text="Please enter a valid transition matrix for an absorving markov chain for correct results. \n If the matrix is invalid, the result will be incorrect as well!\n It is assumed that the columns are stochastic vectors!")
         ask_for_matrix.grid(row=0)
         frame_1.pack()
 
-        for i in range(N):
+        for i in range(dimension_of_matrix): #create entries for matrix elements
             temp_row = []
-            for j in range(N):
+            for j in range(dimension_of_matrix):
                 entry = Entry(master=frame_2,width=10 )
                 entry.insert(0,"0")
                 temp_row.append(entry)
@@ -79,24 +99,24 @@ def create_matrix_elements():
 
         frame_2.pack() 
     
-        ask_for_init = Label(master=frame_3, text="Please Enter the initial state vector")
+        ask_for_init = Label(master=frame_3, text="Please Enter the initial state vector.\n Every row of the vector corresponds to the  column of the transition matrix with equivalent index.")
         ask_for_init.grid(row=0)
 
-        for n in range(N):
+        for n in range(dimension_of_matrix):        #create entries for initial state vector
             entry_init = Entry(frame_3, width = 10)
             entry_init.insert(0,"0")
             entry_init.grid(row=n+1)
             initial_state_vector_entries.append(entry_init)
 
         calculate_button = Button(master = frame_3, text="Calculate!", command = calculate_stable_state_vector)
-        calculate_button.grid(row=N+1)
+        calculate_button.grid(row=dimension_of_matrix+1)
         frame_3.pack()
 
 
         result = Label(master=frame_4, text="Result")
         result.grid(row=0)
         
-        for n in range(N):
+        for n in range(dimension_of_matrix):        #create entries for result vector
             result_entry = Entry(frame_4, width = 20)
             result_entry.insert(0,"0")
             result_entries.append(result_entry)
@@ -113,8 +133,8 @@ def regenerate_matrix():
     for slave in frame_4.grid_slaves():
         slave.destroy()
 
+    create_body()
 
-    create_matrix_elements()
 
 window = Tk()
 window.title("Absorbing Markov Chain")
@@ -125,11 +145,11 @@ frame_3 = Frame(window)
 frame_4 = Frame(window)
 
 initial_state_vector_entries = []
-matrix_entries = []
-result_entries = []
+matrix_entries = [] #store tkinter Entries for matrix
+result_entries = [] #store tkinter Entries for result vector
 
 
-prompt_dimension = Label( master=frame_0, text = "Please enter the dimension (N) of the N x N stochastic matrix!")
+prompt_dimension = Label( master=frame_0, text = "Please enter the dimension (N) of the N x N stochastic transition matrix! (max. 10)")
 prompt_dimension.grid(row=0)
 
 dimension_entry = Entry( master=frame_0, text="Enter N",width=10)
@@ -137,8 +157,8 @@ dimension_entry.insert(0,"0")
 dimension_entry.grid(row=2)
 
 
-button_0 = Button(master=frame_0, text = "Enter", command = create_matrix_elements)
-button_0.grid(row=3)
+dimension_button = Button(master=frame_0, text = "Enter", command = create_body)
+dimension_button.grid(row=3)
 
 frame_0.pack()
 
