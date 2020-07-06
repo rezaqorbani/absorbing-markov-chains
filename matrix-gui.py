@@ -21,7 +21,7 @@ def validate_elements_row(output_matrix,entry,name_of_matrix):
         messagebox.showerror(title=name_of_matrix + "Error", message="The input in "+name_of_matrix+" is incorrect!" )
 
     else:
-        if(len(found.group().split("/"))==2):
+        if(len(found.group().split("/"))==2): #if entry contains a rational number
             division_string_split = found.group().split("/")
             user_input = float(int(division_string_split[0])/int(division_string_split[1]))
             if(user_input > 1): 
