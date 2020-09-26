@@ -4,7 +4,7 @@ import fractions
 
 
 def solution(input_matrix, initial_state):
-    # Your code here
+ 
     mtrx = numpy.array(input_matrix).transpose()
 
     ordered_matrix, number_of_absorb, init_vec= absorb_stndrd_form(mtrx,initial_state) #transition matrix in canonical form, the numer of absorbing states
