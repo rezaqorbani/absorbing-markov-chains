@@ -3,4 +3,4 @@ A python GUI program that calculates the stable state matrix (vector) of an abso
 
 
 
-![Alt text](/../screenshot/markov-chain-screenshot.png?raw=true "Preview")
+![Alt text](/screenshot/markov-chain-screenshot.png?raw=true "Preview")
