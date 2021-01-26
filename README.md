@@ -1,4 +1,4 @@
-#Calculator for stable state of finite Markov chain
+# Calculator for stable state of finite Markov chain
 A python GUI program that calculates the stable state matrix (vector) of an absorbing markov chain. Tkinter is used for GUI and input is validated using regex. 
 
 
