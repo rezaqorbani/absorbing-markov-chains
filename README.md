@@ -5,7 +5,7 @@ A GUI program, written in python that calculates the probability vector in stabl
 
 ![Alt text](/screenshot/markov-chain-screenshot.png?raw=true "Preview")
 
-##Dependencies
+## Dependencies
 numpy must be installed in order to run the program. Numpy can be installed by running the following command: 
 
 ```
