@@ -13,4 +13,7 @@ pip install numpy
 ```
 
 ## Running the program
-Navigate to the src folder 
+Navigate to the src folder and run the following command:
+```
+python3 main.py
+```
