@@ -17,3 +17,8 @@ Navigate to the src folder and run the following command:
 ```
 python3 main.py
 ```
+## Linux
+On linux tkinter must be installed for the program to work. Run the following command:
+```
+sudo apt-get install python3-tk
+```
