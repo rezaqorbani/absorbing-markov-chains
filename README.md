@@ -7,6 +7,7 @@ A GUI program, written in python that calculates the probability vector in stabl
 
 ##Dependencies
 numpy must be installed in order to run the program. Numpy can be installed by running the following command: 
-'''
+
+´´´
 pip install numpy
-'''
+´´´
